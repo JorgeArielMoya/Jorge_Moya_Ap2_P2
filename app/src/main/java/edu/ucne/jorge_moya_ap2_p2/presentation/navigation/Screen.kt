@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 sealed class Screen : NavKey{
     @Serializable
     data object GastoList : Screen()
+    @Serializable
     data class GastoForm (val id : Int) : Screen()
 }
