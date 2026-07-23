@@ -12,7 +12,6 @@ class GastosRemoteDataSource @Inject constructor(
         return try {
             val response = api.getGastos()
             if (!response.isSuccessful){
-                val errorBody = response.errorBody()?.string()
                 Result.failure(Exception("Error de red ${response.message()}"))
             }
             else{
@@ -27,7 +26,6 @@ class GastosRemoteDataSource @Inject constructor(
         return try {
             val response = api.getGasto(id)
             if (!response.isSuccessful){
-                val errorBody = response.errorBody()?.string()
                 Result.failure(Exception("Error de red ${response.message()}"))
             }
             else{
@@ -42,7 +40,6 @@ class GastosRemoteDataSource @Inject constructor(
         return try {
             val response = api.createGasto(dto)
             if (!response.isSuccessful){
-                val errorBody = response.errorBody()?.string()
                 Result.failure(Exception("Error de red ${response.message()}"))
             }
             else{
@@ -58,7 +55,6 @@ class GastosRemoteDataSource @Inject constructor(
         return try {
             val response = api.updateGasto(id, dto)
             if (!response.isSuccessful){
-                val errorBody = response.errorBody()?.string()
                 Result.failure(Exception("Error de red ${response.message()}"))
             }
             else{
