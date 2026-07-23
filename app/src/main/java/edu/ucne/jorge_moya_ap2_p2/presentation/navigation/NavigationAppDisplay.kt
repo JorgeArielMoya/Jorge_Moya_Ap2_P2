@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import edu.ucne.jorge_moya_ap2_p2.presentation.model.edit.GastoFormScreen
-import edu.ucne.jorge_moya_ap2_p2.presentation.model.list.GastosListScreen
+import edu.ucne.jorge_moya_ap2_p2.presentation.gastos.edit.GastoFormScreen
+import edu.ucne.jorge_moya_ap2_p2.presentation.gastos.list.GastosListScreen
 
 @Composable
 fun AppNavigationDisplay() {

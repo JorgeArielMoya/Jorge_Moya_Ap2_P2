@@ -1,4 +1,4 @@
-package edu.ucne.jorge_moya_ap2_p2.presentation.model.edit
+package edu.ucne.jorge_moya_ap2_p2.presentation.gastos.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

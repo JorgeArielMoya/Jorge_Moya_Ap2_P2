@@ -1,4 +1,4 @@
-package edu.ucne.jorge_moya_ap2_p2.presentation.model.list
+package edu.ucne.jorge_moya_ap2_p2.presentation.gastos.list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
