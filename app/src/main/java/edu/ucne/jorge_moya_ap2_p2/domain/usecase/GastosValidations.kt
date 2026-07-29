@@ -2,16 +2,29 @@ package edu.ucne.jorge_moya_ap2_p2.domain.usecase
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.format.ResolverStyle
 
 data class GastosValidations(
     val isValid : Boolean,
     val error : String? = null
 )
 
+private val FECHA_FORMATTER: DateTimeFormatter = DateTimeFormatter
+    .ofPattern("dd-MM-yyyy")
+    .withResolverStyle(ResolverStyle.STRICT)
+
 fun validateFecha (fecha : String) : GastosValidations{
     return when{
         fecha.isBlank() -> GastosValidations(false, "Fecha requerida")
-        else -> GastosValidations(true)
+        !fecha.matches(Regex("""^\d{2}-\d{2}-\d{4}$""")) ->
+            GastosValidations(false, "Formato de fecha inválido, use dd-MM-yyyy")
+        else -> try {
+            LocalDate.parse(fecha, FECHA_FORMATTER)
+            GastosValidations(true)
+        } catch (e: DateTimeParseException) {
+            GastosValidations(false, "Fecha inválida")
+        }
     }
 }
 
