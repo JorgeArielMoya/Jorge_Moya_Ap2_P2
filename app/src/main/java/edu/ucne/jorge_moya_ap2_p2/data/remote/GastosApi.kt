@@ -20,5 +20,5 @@ interface GastosApi {
     suspend fun createGasto (@Body dto: GastosRequest) : Response<GastosResponse>
 
     @PUT("api/Gastos/{id}")
-    suspend fun updateGasto (@Path("id") id : Int, @Body dto: GastosRequest) : Response<GastosResponse>
+    suspend fun updateGasto (@Path("id") id : Int, @Body dto: GastosRequest) : Response<Unit>
 }
