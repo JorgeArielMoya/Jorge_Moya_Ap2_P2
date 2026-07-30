@@ -58,7 +58,7 @@ class GastosRemoteDataSource @Inject constructor(
                 Result.failure(Exception("Error de red ${response.message()}"))
             }
             else{
-                Result.success(response.body()?: GastosResponse(id, dto.fecha, dto.suplidor, dto.ncf, dto.itbis, dto.monto))
+                Result.success(GastosResponse(id, dto.fecha, dto.suplidor, dto.ncf, dto.itbis, dto.monto))
             }
         }catch (e : Exception){
             Result.failure(Exception(e.message?: "Error desconocido"))
