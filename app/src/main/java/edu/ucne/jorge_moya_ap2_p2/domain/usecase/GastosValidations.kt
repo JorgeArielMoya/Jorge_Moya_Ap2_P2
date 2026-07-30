@@ -11,16 +11,17 @@ data class GastosValidations(
 )
 
 private val FECHA_FORMATTER: DateTimeFormatter = DateTimeFormatter
-    .ofPattern("dd-MM-yyyy")
+    .ofPattern("dd-MM-uuuu")
     .withResolverStyle(ResolverStyle.STRICT)
 
 fun validateFecha (fecha : String) : GastosValidations{
+    val normalizada = fecha.trim()
     return when{
-        fecha.isBlank() -> GastosValidations(false, "Fecha requerida")
-        !fecha.matches(Regex("""^\d{2}-\d{2}-\d{4}$""")) ->
+        normalizada.isBlank() -> GastosValidations(false, "Fecha requerida")
+        !normalizada.matches(Regex("""^\d{2}-\d{2}-\d{4}$""")) ->
             GastosValidations(false, "Formato de fecha inválido, use dd-MM-yyyy")
         else -> try {
-            LocalDate.parse(fecha, FECHA_FORMATTER)
+            LocalDate.parse(normalizada, FECHA_FORMATTER)
             GastosValidations(true)
         } catch (e: DateTimeParseException) {
             GastosValidations(false, "Fecha inválida")
@@ -43,23 +44,27 @@ fun validateNcf (ncf : String) : GastosValidations{
 }
 
 fun validateItbis (itbis : String) : GastosValidations{
+    val valor = itbis.trim().toDoubleOrNull()
     return when{
         itbis.isBlank() -> GastosValidations(false, "Itbis requerido")
+        valor == null -> GastosValidations(false, "Itbis debe ser un número válido")
+        valor < 0 -> GastosValidations(false, "Itbis debe ser positivo")
         else -> GastosValidations(true)
     }
 }
 
 fun validateMonto (monto : String) : GastosValidations{
+    val valor = monto.trim().toDoubleOrNull()
     return when{
-        monto.isBlank() -> GastosValidations(false, "Monto requerida")
-        monto.toDouble() < 0 -> GastosValidations(false, "Monto debe ser positivo")
+        monto.isBlank() -> GastosValidations(false, "Monto requerido")
+        valor == null -> GastosValidations(false, "Monto debe ser un número válido")
+        valor < 0 -> GastosValidations(false, "Monto debe ser positivo")
         else -> GastosValidations(true)
     }
 }
 
 fun formatFechaParaApi(fechaUsuario: String): String {
-    val formatterEntrada = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-    val fecha = LocalDate.parse(fechaUsuario, formatterEntrada)
+    val fecha = LocalDate.parse(fechaUsuario.trim(), FECHA_FORMATTER)
     return fecha.atStartOfDay().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 }
 
